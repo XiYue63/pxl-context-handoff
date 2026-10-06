@@ -20,9 +20,14 @@ metadata:
 
 ## 数据来源
 
-Codex 把每次对话存成 rollout JSONL：`~/.codex/sessions/YYYY/MM/DD/rollout-*.jsonl`，
-归档在 `~/.codex/archived_sessions`。每个文件第一行的 `session_meta` 带 `cwd`，
-据此判断这次对话属于哪个项目。
+脚本合并三个来源并去重，按可靠性排序：
+
+1. `~/.codex/.codex-global-state.json` 的 `thread-project-assignments`：Codex 自己
+   记录的「对话 → 项目」归属表，**项目文件夹改名或移动后依然有效**。先按路径解析出
+   `projectId`，再取该 projectId 下的全部对话。
+2. `~/.codex/state_5.sqlite` 的 `threads` 表：给出每个对话的 rollout 路径、标题和
+   归档状态。归档对话的 rollout 在 `archived_sessions` 目录，只有这张表知道位置。
+3. rollout 文件第一行的 `session_meta.cwd`：兜底匹配，覆盖归属表里没有的老对话。
 
 用脚本读取，不要手写解析：
 
@@ -33,14 +38,20 @@ python <skill-root>/scripts/scan_project_conversations.py --project <项目根�
 常用参数：
 
 - `--list`：紧凑清单（日期 / 会话 ID / 轮次 / 标题），先看有哪些对话。
+- `--explain`：清单里额外显示归属依据（项目归属表 / 工作目录）。
+- `--alias <旧路径>`：同一项目的旧路径，可重复；文件夹改名或移动后补充匹配。
 - 默认输出 Markdown 索引报告，含每次对话的用户诉求和最后一条回复的截断。
 - `--format json`：结构化输出。
 - `--session <id>`：展开某一次对话的完整内容。
-- `--include-archived`：同时扫描归档会话。
+- `--include-archived`：按路径扫描时也包含归档会话（归属表命中的归档会话本来就会包含）。
+- `--no-desktop-state`：不使用归属表，只按 rollout 里的 cwd 匹配。
 - `--out <file>`：写入文件而不是打印。
 
-脚本只读会话存储，不会修改或删除任何记录。这些文件在项目目录之外，读之前先向用户
-说明来源。
+脚本只读会话存储和状态库，不会修改或删除任何记录。这些文件在项目目录之外，读之前先
+向用户说明来源。
+
+注意：Codex 的一个项目可以绑定多个根目录（例如同时包含两个文件夹）。这类项目的对话数
+会多于单个文件夹里的数量，这是正常的，按项目汇总时应全部计入。
 
 ## 上下文文件
 

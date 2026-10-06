@@ -1,4 +1,4 @@
-# context-handoff
+# context-handoff-pxl
 
 把一个项目下的**多次不同对话**汇总成一份项目上下文，让新对话不必从零开始。
 
@@ -14,14 +14,14 @@
 
 把本目录放到你的 skills 目录之一，例如：
 
-- `~/.agents/skills/context-handoff`
-- `~/.codex/skills/context-handoff`
+- `~/.agents/skills/context-handoff-pxl`
+- `~/.codex/skills/context-handoff-pxl`
 
 ## 用法
 
 在 Codex 对话里直接说：
 
-- “用 context-handoff 汇总这个项目里所有的对话”
+- “用 context-handoff-pxl 汇总这个项目里所有的对话”
 - “把这个项目的对话上下文整理一下”
 - “接上这个项目的上下文”
 

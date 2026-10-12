@@ -10,6 +10,8 @@ description: >-
   that context in a new session. Not for summarizing an article, paper, or
   document that carries no cross-session state.
 metadata:
+  version: 1.0.1
+  repo: https://github.com/XiYue63/pxl-context-handoff
   short-description: 把一个项目下多次不同对话汇总成一份项目上下文
 ---
 

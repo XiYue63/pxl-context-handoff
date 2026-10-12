@@ -2,6 +2,12 @@
 
 本 skill 采用语义化版本。
 
+## v1.0.2 — 2026-10-12
+
+- 增加 MIT `LICENSE`
+- `SKILL.md` frontmatter 增加 `license: MIT`
+- 补齐 GitHub Release 所需的公开仓库发版元数据
+
 ## v1.0.1 — 2026-10-12
 
 - `SKILL.md` frontmatter 增加 `metadata.version` 与 `metadata.repo`，安装副本可读出版本与来源

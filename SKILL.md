@@ -1,5 +1,5 @@
 ---
-name: context-handoff-pxl
+name: pxl-context-handoff
 description: >-
   Maintain one durable project context file so a new Codex conversation starts
   with what earlier conversations in the same project already established.
